@@ -9,7 +9,7 @@ def EsPrimo(Num):
 
 Num=2
 cont=0
-while cont < 100:
+while cont < 101:
     if EsPrimo(Num):
         print(Num)
         cont +=1
