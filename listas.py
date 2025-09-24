@@ -1,40 +1,67 @@
 import os
-opcion=-1
-TareasPendientes=[]
-while opcion != 0:
+
+tasks = []
+
+def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("BIENVENIDOS A LISTADO DE TAREAS PENDIENTES")
-    print("1. Ver mis tareas pendientes")
-    print("2. Crear una nueva tarea")
-    print("3. Actualizar estado de una tarea")
-    print("4. Eliminar una tarea")
-    print("0. Salir")
 
-    try:
-        opcion = int(input("Seleccione una opción: "))
+def pause():
+    input("Presione Enter para continuar...")
 
-        match opcion:
-            case 1:
-                if len(TareasPendientes) == 0:
-                    print("No hay tareas pendientes")
-                    input("Presione una tecla para continuar")
-                else:   
-                    print(TareasPendientes)
-            case 2:
-                nueva=input("indica una nueva tarea")
-                TareasPendientes.append(nueva)
-                input("Presione una tecla para continuar")
+def menu():
+    print("Bienvenido al sistema de gestión de tareas.")
+    print("1. Agregar tarea")
+    print("2. Ver tareas")
+    print("3. Eliminar tarea")
+    print("4. Salir")
+    choice = input("Seleccione una opción: ")
+    return choice
 
+def add_task():
+    task = input("Ingrese la tarea: ")
+    tasks.append(task)
+    print("Tarea agregada.")
 
-            case 3: 
-                pass
+def view_tasks():
+    if not tasks:
+        print("No hay tareas pendientes.")
+    else:
+        print("Tareas pendientes:")
+        for idx, task in enumerate(tasks, 1):
+            print(f"{idx}. {task}")
 
-            case 4:
-                for i,Tarea in enumerate(TareasPendientes,1):
-                    #print(f"Tus tareas pendientes son : {TareasPendientes}")
-                    print(f"{i}. {Tarea}")
-                    Eliminar=(input("indica el numero de la tarea a eliminar"))
-    except ValueError:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print("Entrada no válida. Por favor, ingrese un número entero.")
-        input()
+def delete_task():
+    task_num = int(input("Ingrese el número de la tarea a eliminar: "))
+    if 0 < task_num <= len(tasks):
+        tasks.pop(task_num - 1)
+        print("Tarea eliminada.")
+    else:
+        print("Número de tarea inválido.")
+
+def exit_program():
+    print("Saliendo del programa. ¡Hasta luego!")
+    return False
+    
+def main():
+    isActive = True
+    while isActive:
+        clear_screen()
+        choice = menu()
+        if choice == '1':
+            add_task()
+            pause()
+        elif choice == '2':
+            view_tasks()
+            pause()
+        elif choice == '3':
+            view_tasks()
+            delete_task()
+            pause()
+        elif choice == '4':
+            isActive = exit_program()
+        else:
+            print("Opción inválida. Intente de nuevo.")
+            pause()
+
+if __name__ == "__main__":
+    main()
