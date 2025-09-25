@@ -13,7 +13,8 @@ def menu():
     print("1. Agregar tarea")
     print("2. Ver tareas")
     print("3. Eliminar tarea")
-    print("4. Salir")
+    print("4. Actualizar tarea")
+    print("5. Salir")
     choice = input("Seleccione una opción: ")
     return choice
 
@@ -42,6 +43,14 @@ def exit_program():
     print("Saliendo del programa. ¡Hasta luego!")
     return False
     
+def Actualizar(i):
+        i=input("indique la tarea que desea actualizar")
+        nueva=input("indique su actualizacion")
+        nueva=tasks.pop(i-1)
+        tasks.insert(i-1,nueva)
+        return "Su tarea ha sido actualizada"
+
+
 def main():
     isActive = True
     while isActive:
@@ -49,15 +58,25 @@ def main():
         choice = menu()
         if choice == '1':
             add_task()
-            pause()
+            input()
         elif choice == '2':
             view_tasks()
-            pause()
+            input()
+            
         elif choice == '3':
             view_tasks()
             delete_task()
-            pause()
+            input()
+            
         elif choice == '4':
+            view_tasks()
+            i=input("indique la tarea que desea actualizar")
+            nueva=input("indique su actualizacion")
+            nueva=tasks.pop(i-1)
+            tasks.insert(i-1,nueva)
+            input()
+
+        elif choice == '5':
             isActive = exit_program()
         else:
             print("Opción inválida. Intente de nuevo.")
